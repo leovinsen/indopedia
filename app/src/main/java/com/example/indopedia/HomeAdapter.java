@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ArticleViewHolder> {
+    public static final String ARTICLE_TITLE = "com.example.indopedia.TITLE";
     public static final String ARTICLE_HEADER = "com.example.indopedia.HEADER";
     public static final String ARTICLE_TEXT = "com.example.indopedia.TEXT";
     private ArrayList<Article> mArticleList;
@@ -82,6 +83,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ArticleViewHol
                     Context context = v.getContext();
                     Intent intent = new Intent(context, ArticleActivity.class);
                     Article article = mArticleList.get(getAdapterPosition());
+                    intent.putExtra(ARTICLE_TITLE, article.getTitle());
                     intent.putExtra(ARTICLE_HEADER, article.getPhotoId());
                     intent.putExtra(ARTICLE_TEXT, article.getContent());
                     context.startActivity(intent);
