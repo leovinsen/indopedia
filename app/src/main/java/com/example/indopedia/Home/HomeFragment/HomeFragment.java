@@ -1,4 +1,4 @@
-package com.example.indopedia;
+package com.example.indopedia.Home.HomeFragment;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.indopedia.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;

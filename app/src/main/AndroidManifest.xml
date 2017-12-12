@@ -13,7 +13,8 @@
         </intent-filter>
         </activity>
 
-        <activity android:name=".ArticleActivity"
+        <activity
+            android:name=".Home.ArticleActivity.ArticleActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".MainActivity" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->

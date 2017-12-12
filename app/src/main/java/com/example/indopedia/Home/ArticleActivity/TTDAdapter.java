@@ -1,12 +1,15 @@
-package com.example.indopedia;
+package com.example.indopedia.Home.ArticleActivity;
 
-import android.content.Context;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.indopedia.R;
 
 import java.util.ArrayList;
 
@@ -18,9 +21,11 @@ import java.util.ArrayList;
 public class TTDAdapter extends RecyclerView.Adapter<TTDAdapter.TTDViewHolder> {
 
     private ArrayList<ThingsToDo> mThingsToDoList;
+    private FragmentManager mFragmentManager;
 
-    TTDAdapter(ArrayList<ThingsToDo> mThingsToDoList){
-        this.mThingsToDoList = mThingsToDoList;
+    TTDAdapter(ArrayList<ThingsToDo> dataset, FragmentManager fragmentManager) {
+        this.mThingsToDoList = dataset;
+        this.mFragmentManager = fragmentManager;
     }
 
     // Create new views (invoked by the layout manager)
@@ -43,6 +48,7 @@ public class TTDAdapter extends RecyclerView.Adapter<TTDAdapter.TTDViewHolder> {
         holder.ttdPhoto.setImageResource(mThingsToDoList.get(position).getPhotoId());
         holder.ttdTitle.setText(mThingsToDoList.get(position).getTitle());
         holder.ttdDescription.setText(mThingsToDoList.get(position).getDescription());
+
     }
 
     @Override
@@ -65,6 +71,8 @@ public class TTDAdapter extends RecyclerView.Adapter<TTDAdapter.TTDViewHolder> {
         private ImageView ttdPhoto;
         private TextView ttdTitle;
         private TextView ttdDescription;
+        //private ScrollView scrollView;
+
 
         public TTDViewHolder(View v) {
             super(v);
@@ -72,14 +80,29 @@ public class TTDAdapter extends RecyclerView.Adapter<TTDAdapter.TTDViewHolder> {
             ttdTitle = v.findViewById(R.id.ttd_title);
             ttdDescription = v.findViewById(R.id.ttd_description);
 
+//            scrollView = v.findViewById(R.id.scroll_view);
+//            scrollView.setOnTouchListener(new View.OnTouchListener() {
+//
+//                public boolean onTouch(View v, MotionEvent event) {
+//                    // Disallow the touch request for parent scroll on touch of child view
+//                    v.getParent().requestDisallowInterceptTouchEvent(true);
+//                    return false;
+//                }
+//            });
+
             //On clicking article, open new activity which contains more details
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Context context = v.getContext();
-                    //Intent intent = new Intent(context, ArticleActivity.class);
 
-                    //context.startActivity(intent);
+                    Fragment frag = mFragmentManager.findFragmentByTag("fragment_dialog");
+                    if (frag != null) {
+                        mFragmentManager.beginTransaction().remove(frag).commit();
+                    }
+
+                    ThingsToDo ttd = mThingsToDoList.get(getAdapterPosition());
+                    DestinationDialog dialog = DestinationDialog.newInstance(ttd.getPhotoId(), ttd.getTitle(), ttd.getDescription());
+                    dialog.show(mFragmentManager, "fragment_dialog");
                 }
             });
         }

@@ -1,4 +1,4 @@
-package com.example.indopedia;
+package com.example.indopedia.CuisineMenu;
 
 /**
  * Created by asus on 06/12/2017.

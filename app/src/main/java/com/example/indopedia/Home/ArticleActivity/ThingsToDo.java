@@ -1,4 +1,4 @@
-package com.example.indopedia;
+package com.example.indopedia.Home.ArticleActivity;
 
 /**
  * Created by asus on 07/12/2017.

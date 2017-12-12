@@ -1,4 +1,4 @@
-package com.example.indopedia;
+package com.example.indopedia.Home.HomeFragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.indopedia.Home.ArticleActivity.ArticleActivity;
+import com.example.indopedia.R;
+
 import java.util.ArrayList;
 
 /**
@@ -17,9 +20,9 @@ import java.util.ArrayList;
  */
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ArticleViewHolder> {
-    public static final String ARTICLE_TITLE = "com.example.indopedia.TITLE";
-    public static final String ARTICLE_HEADER = "com.example.indopedia.HEADER";
-    public static final String ARTICLE_TEXT = "com.example.indopedia.TEXT";
+    public static final String ARTICLE_TITLE = "com.example.indopedia.Home.HomeFragment.TITLE";
+    public static final String ARTICLE_HEADER = "com.example.indopedia.Home.HomeFragment.HEADER";
+    public static final String ARTICLE_TEXT = "com.example.indopedia.Home.HomeFragment.TEXT";
     private ArrayList<Article> mArticleList;
 
     HomeAdapter(ArrayList<Article> mArticleList){

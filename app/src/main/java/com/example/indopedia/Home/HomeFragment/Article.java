@@ -1,4 +1,4 @@
-package com.example.indopedia;
+package com.example.indopedia.Home.HomeFragment;
 
 /**
  * Created by asus on 12/11/2017.
