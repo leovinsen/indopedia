@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,7 +25,6 @@ public class DestinationDialog extends DialogFragment {
     public static DestinationDialog newInstance(int imageId, String title, String content) {
         DestinationDialog dialog = new DestinationDialog();
 
-        // Supply num input as an argument.
         Bundle args = new Bundle();
         args.putInt("imageId", imageId);
         args.putString("title", title);
@@ -49,7 +49,7 @@ public class DestinationDialog extends DialogFragment {
         mImageView.setImageResource(args.getInt("imageId"));
         mTitle.setText(args.getString("title"));
         mContent.setText(args.getString("content"));
-
+        mContent.setMovementMethod(new ScrollingMovementMethod());
         builder.setView(mView);
 
         return builder.create();

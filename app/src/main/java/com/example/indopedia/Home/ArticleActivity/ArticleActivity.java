@@ -46,7 +46,7 @@ public class ArticleActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<ThingsToDo> mThingsToDoList;
+    private ArrayList<TouristDestination> mTouristDestinationList;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -105,10 +105,7 @@ public class ArticleActivity extends AppCompatActivity {
 
         initializeRecyclerViewDataset();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
-
         //Grid layout with 2 columns
         mLayoutManager = new GridLayoutManager(this,2);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -117,19 +114,8 @@ public class ArticleActivity extends AppCompatActivity {
         int spacing = 20; // 50px
         boolean includeEdge = false;
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
-
-        //allow textview to be scrolled inside
-//        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-//
-//            public boolean onTouch(View v, MotionEvent event) {
-//                findViewById(R.id.scroll_view).getParent().requestDisallowInterceptTouchEvent(false);
-//                return false;
-//            }
-//        });
-        // specify an adapter (see also next example)
-        mAdapter = new TTDAdapter(mThingsToDoList, getFragmentManager());
+        mAdapter = new TDAdapter(mTouristDestinationList, getFragmentManager());
         mRecyclerView.setAdapter(mAdapter);
-
     }
 
     private void initializeRecyclerViewDataset() {
@@ -147,12 +133,12 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void load() throws IOException {
-        mThingsToDoList = new ArrayList<>();
-        Log.d(TAG, "Loading mThingsToDoList...");
+        mTouristDestinationList = new ArrayList<>();
+        Log.d(TAG, "Loading mTouristDestinationList...");
 
         StringBuilder sb = new StringBuilder();
         sb.append(articleTitle.replaceAll(" ", "_").toLowerCase());
-        sb.append("_ttd");
+        sb.append("_td");
 
         final Resources resources = this.getResources();
 
@@ -161,8 +147,8 @@ public class ArticleActivity extends AppCompatActivity {
 
         InputStream inputStream = resources.openRawResource(rawId);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
         try{
+
             String line;
             //read until end of file
             while ((line = reader.readLine()) != null){
@@ -178,11 +164,9 @@ public class ArticleActivity extends AppCompatActivity {
                 String description = strings[2].trim();
 
 
-                Log.d(TAG, "Drawable : " + photoId);
+                Log.d(TAG, "Loading article for " + title);
 
-                Log.d(TAG, "Loading article for " + articleTitle);
-
-                mThingsToDoList.add(new ThingsToDo(photoId, title, description));
+                mTouristDestinationList.add(new TouristDestination(photoId, title, description));
             }
         } finally {
             reader.close();

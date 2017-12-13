@@ -4,13 +4,13 @@ package com.example.indopedia.Home.ArticleActivity;
  * Created by asus on 07/12/2017.
  */
 
-public class ThingsToDo {
+public class TouristDestination {
 
     private int photoId;
     private String title;
     private String description;
 
-    public ThingsToDo(int photoId, String title, String description) {
+    public TouristDestination(int photoId, String title, String description) {
         this.photoId = photoId;
         this.title = title;
         this.description = description;

@@ -17,37 +17,37 @@ import java.util.ArrayList;
  * Created by asus on 07/12/2017.
  */
 
-//TTD stands for ThingsToDo
-public class TTDAdapter extends RecyclerView.Adapter<TTDAdapter.TTDViewHolder> {
+//TTD stands for TouristDestination
+public class TDAdapter extends RecyclerView.Adapter<TDAdapter.TTDViewHolder> {
 
-    private ArrayList<ThingsToDo> mThingsToDoList;
+    private ArrayList<TouristDestination> mTouristDestinationList;
     private FragmentManager mFragmentManager;
 
-    TTDAdapter(ArrayList<ThingsToDo> dataset, FragmentManager fragmentManager) {
-        this.mThingsToDoList = dataset;
+    TDAdapter(ArrayList<TouristDestination> dataset, FragmentManager fragmentManager) {
+        this.mTouristDestinationList = dataset;
         this.mFragmentManager = fragmentManager;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public TTDAdapter.TTDViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TDAdapter.TTDViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_things_to_do_view, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        TTDAdapter.TTDViewHolder vh = new TTDAdapter.TTDViewHolder(v);
+        TDAdapter.TTDViewHolder vh = new TDAdapter.TTDViewHolder(v);
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(TTDAdapter.TTDViewHolder holder, int position) {
+    public void onBindViewHolder(TDAdapter.TTDViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
-        holder.ttdPhoto.setImageResource(mThingsToDoList.get(position).getPhotoId());
-        holder.ttdTitle.setText(mThingsToDoList.get(position).getTitle());
-        holder.ttdDescription.setText(mThingsToDoList.get(position).getDescription());
+        holder.ttdPhoto.setImageResource(mTouristDestinationList.get(position).getPhotoId());
+        holder.ttdTitle.setText(mTouristDestinationList.get(position).getTitle());
+        holder.ttdDescription.setText(mTouristDestinationList.get(position).getDescription());
 
     }
 
@@ -59,7 +59,7 @@ public class TTDAdapter extends RecyclerView.Adapter<TTDAdapter.TTDViewHolder> {
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mThingsToDoList.size();
+        return mTouristDestinationList.size();
     }
 
     // Provide a reference to the views for each data item
@@ -76,19 +76,9 @@ public class TTDAdapter extends RecyclerView.Adapter<TTDAdapter.TTDViewHolder> {
 
         public TTDViewHolder(View v) {
             super(v);
-            ttdPhoto = v.findViewById(R.id.ttd_photo);
-            ttdTitle = v.findViewById(R.id.ttd_title);
-            ttdDescription = v.findViewById(R.id.ttd_description);
-
-//            scrollView = v.findViewById(R.id.scroll_view);
-//            scrollView.setOnTouchListener(new View.OnTouchListener() {
-//
-//                public boolean onTouch(View v, MotionEvent event) {
-//                    // Disallow the touch request for parent scroll on touch of child view
-//                    v.getParent().requestDisallowInterceptTouchEvent(true);
-//                    return false;
-//                }
-//            });
+            ttdPhoto = v.findViewById(R.id.td_photo);
+            ttdTitle = v.findViewById(R.id.td_title);
+            ttdDescription = v.findViewById(R.id.td_content);
 
             //On clicking article, open new activity which contains more details
             v.setOnClickListener(new View.OnClickListener() {
@@ -97,10 +87,11 @@ public class TTDAdapter extends RecyclerView.Adapter<TTDAdapter.TTDViewHolder> {
 
                     Fragment frag = mFragmentManager.findFragmentByTag("fragment_dialog");
                     if (frag != null) {
-                        mFragmentManager.beginTransaction().remove(frag).commit();
+                        DestinationDialog dialog = (DestinationDialog) frag;
+                        dialog.dismiss();
                     }
 
-                    ThingsToDo ttd = mThingsToDoList.get(getAdapterPosition());
+                    TouristDestination ttd = mTouristDestinationList.get(getAdapterPosition());
                     DestinationDialog dialog = DestinationDialog.newInstance(ttd.getPhotoId(), ttd.getTitle(), ttd.getDescription());
                     dialog.show(mFragmentManager, "fragment_dialog");
                 }
