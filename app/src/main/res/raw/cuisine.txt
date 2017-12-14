@@ -1,0 +1,25 @@
+gudeg --- Gudeg
+ketoprak --- Ketoprak
+gadogado --- Gado-Gado
+sate --- Sate (Satay)
+sate_padang --- Sate Padang
+soto_betawi --- Soto Betawi
+nasi_uduk --- Nasi Uduk
+rawon --- Rawon
+tumpeng --- Tumpeng
+martabak_telur --- Martabak Telur
+martabak_tipis --- Martabak Tipis
+martabak_manis --- Martabak Manis
+siomay_bandung --- Siomay Bandung
+nasi_goreng_merah --- Nasi Goreng Merah
+lemper --- Lemper
+ronde --- Ronde
+pempek --- Pempek
+tempe --- Tempe
+es_campur --- Es Campur
+es_soda_gembira --- Es Soda Gembira
+nasi_padang --- Nasi Padang
+ayam_kalasan --- Ayam Goreng Kalasan
+ayam_bakar --- Ayam Bakar
+ayam_pop --- Ayam Pop
+es_cendol --- Es Cendol

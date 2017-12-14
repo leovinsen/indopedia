@@ -28,7 +28,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/td_photo"
                 android:textSize="@dimen/tourist_destination_title"
-                android:padding="15dp" />
+                android:padding="15dp"
+                android:ellipsize="end"
+                android:singleLine="true" />
 
 
             <TextView

@@ -6,7 +6,7 @@
     <string name="text_search">Search Fragment</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_search">Search</string>
-    <string name="menu_notifications">Notifications</string>
+    <string name="menu_phrases">Phrases</string>
+    <string name="menu_cuisine">Cuisine</string>
     <string name="tourdest">Tourist Destinations</string>
 </resources>

@@ -6,14 +6,17 @@ package com.example.indopedia.Home.HomeFragment;
 
 public class Article {
 
+
     private String title;
     private String content;
     private int photoId;
+    private String backEndName;
 
-    public Article(String title, String content, int photoId){
+    public Article(String title, String content, int photoId, String backEndName) {
         this.title = title;
         this.content =content;
         this.photoId = photoId;
+        this.backEndName = backEndName;
     }
 
     public String getTitle(){
@@ -33,5 +36,13 @@ public class Article {
     }
     public void setPhotoId(int photoId) {
         this.photoId = photoId;
+    }
+
+    public String getBackEndName() {
+        return backEndName;
+    }
+
+    public void setBackEndName(String backEndName) {
+        this.backEndName = backEndName;
     }
 }

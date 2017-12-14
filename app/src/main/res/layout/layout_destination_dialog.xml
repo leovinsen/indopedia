@@ -3,14 +3,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minHeight="700dp"
-    android:minWidth="600dp"
+    android:minHeight="750dp"
+    android:minWidth="700dp"
     android:padding="5dp">
 
     <ImageView
         android:id="@+id/dialog_image"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
         android:scaleType="centerCrop" />
 
     <TextView
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/dialog_title"
         android:textSize="@dimen/tourist_destination_content"
-        android:background="@color/white"
+        android:background="@color/color_white"
         android:scrollbars="vertical"
         android:maxLines="10"
         android:paddingLeft="10dp"

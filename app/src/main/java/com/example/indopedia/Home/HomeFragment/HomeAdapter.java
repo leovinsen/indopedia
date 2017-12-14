@@ -23,6 +23,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ArticleViewHol
     public static final String ARTICLE_TITLE = "com.example.indopedia.Home.HomeFragment.TITLE";
     public static final String ARTICLE_HEADER = "com.example.indopedia.Home.HomeFragment.HEADER";
     public static final String ARTICLE_TEXT = "com.example.indopedia.Home.HomeFragment.TEXT";
+    public static final String ARTICLE_BACKEND = "com.example.indopedia.Home.HomeFragment.BACKEND";
     private ArrayList<Article> mArticleList;
 
     HomeAdapter(ArrayList<Article> mArticleList){
@@ -89,6 +90,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ArticleViewHol
                     intent.putExtra(ARTICLE_TITLE, article.getTitle());
                     intent.putExtra(ARTICLE_HEADER, article.getPhotoId());
                     intent.putExtra(ARTICLE_TEXT, article.getContent());
+                    intent.putExtra(ARTICLE_BACKEND, article.getBackEndName());
                     context.startActivity(intent);
                 }
             });

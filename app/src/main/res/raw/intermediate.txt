@@ -1,0 +1,27 @@
+Rupiah - Rupiah (Indonesian Currency) - rupiah
+Satu(1) - One - satu
+Dua(2) - Two - dua
+Tiga(3) - Three - tiga
+Empat(4) - Four - empat
+Lima(5) - Five - lima
+Enam(6) - Six - enam
+Tujuh(7) - Seven - tujuh
+Delapan(8) - Eight - delapan
+Sembilan(9) - Nine - sembilan
+Sepuluh(10) - Ten - sepuluh
+Sebelas(11) - Eleven - sebelas
+Dua Belas(12) - Twelve - duabelas
+Tiga Belas(13) - Thirteen - tigabelas
+Empat Belas(14) - Fourteen - empatbelas
+Lima Belas(15) - Fifteen - limabelas
+Dua Puluh(20) - Twenty - duapuluh
+Dua Puluh Satu(21) - Twenty One - duapuluhsatu
+Dua Puluh Dua(22) - Twenty Two - duapuluhdua
+Tiga Puluh Enam(36) - Thirty six - tigapuluhenam
+Lima Puluh Tujuh(57) - Fifty Seven - limapuluhtujuh
+Ratus - Hundred - ratus
+Ribu - Thousand - ribu
+Juta - Million - juta
+Milliar - Billion - milliar
+Trilliun - Trillion - trilliun
+Lima Puluh Ribu Rupiah (Rp. 50,000.00) - Fifty Thousand Rupiah - limapuluhriburupiah

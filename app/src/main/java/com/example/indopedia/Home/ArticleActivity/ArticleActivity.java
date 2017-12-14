@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,12 +35,14 @@ public class ArticleActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private ActionBar mActionBar;
-    private Drawable mActionBarBackgroundDrawable;
+    private ObservableScrollView mScrollView;
 
-    private String articleTitle;
+
+    private String articleBackEndName;
     private ImageView mArticleHeader;
     private TextView mArticleText;
-    private TextView mThingsToDo;
+
+    private TextView mTouristTextView;
 
     //Things To Do
     private RecyclerView mRecyclerView;
@@ -62,8 +64,8 @@ public class ArticleActivity extends AppCompatActivity {
         cd.setAlpha(0);
         mActionBar.setBackgroundDrawable(cd);
 
-        ObservableScrollView scrollView = findViewById(R.id.article_scroll_view);
-        scrollView.setOnScrollViewListener(new ObservableScrollView.OnScrollViewListener() {
+        mScrollView = findViewById(R.id.article_scroll_view);
+        mScrollView.setOnScrollViewListener(new ObservableScrollView.OnScrollViewListener() {
 
             @Override
             public void onScrollChanged(ObservableScrollView v, int l, int t, int oldl, int oldt) {
@@ -85,16 +87,16 @@ public class ArticleActivity extends AppCompatActivity {
             }
         });
 
-
         mArticleHeader = findViewById(R.id.article_header);
         mArticleText = findViewById(R.id.article_text);
-        mThingsToDo = findViewById(R.id.article_things_to_do);
+        mTouristTextView = findViewById(R.id.article_tourist_destinations);
 
         //Use data from Article class
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        articleTitle = extras.getString(HomeAdapter.ARTICLE_TITLE);
-        setTitle(articleTitle);
+        articleBackEndName = extras.getString(HomeAdapter.ARTICLE_BACKEND);
+
+        setTitle(extras.getString(HomeAdapter.ARTICLE_TITLE));
         mArticleHeader.setImageResource(extras.getInt(HomeAdapter.ARTICLE_HEADER));
         mArticleText.setText(extras.getString(HomeAdapter.ARTICLE_TEXT));
 
@@ -102,42 +104,42 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private void initializeRecyclerView() {
-
-        initializeRecyclerViewDataset();
+        //load data from .txt files. Returns true if successful
+        boolean success = false;
+        try {
+            success = load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        //Grid layout with 2 columns
-        mLayoutManager = new GridLayoutManager(this,2);
-        mRecyclerView.setLayoutManager(mLayoutManager);
 
-        int spanCount = 2; // 2 columns
-        int spacing = 20; // 50px
-        boolean includeEdge = false;
-        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
-        mAdapter = new TDAdapter(mTouristDestinationList, getFragmentManager());
-        mRecyclerView.setAdapter(mAdapter);
+        //If failed to load data, don't show Tourist Destinations
+        if (success) {
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setNestedScrollingEnabled(false);
+            //Grid layout with 2 columns
+            mLayoutManager = new GridLayoutManager(this, 2);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+
+            int spanCount = 2; // 2 columns
+            int spacing = 20; // 50px
+            boolean includeEdge = false;
+            mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
+            mAdapter = new TDAdapter(mTouristDestinationList, getFragmentManager());
+            mAdapter.setHasStableIds(true);
+            mRecyclerView.setAdapter(mAdapter);
+        } else {
+            mTouristTextView.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.GONE);
+        }
     }
 
-    private void initializeRecyclerViewDataset() {
-
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    load();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }).start();
-
-    }
-
-    private void load() throws IOException {
+    private boolean load() throws IOException {
         mTouristDestinationList = new ArrayList<>();
         Log.d(TAG, "Loading mTouristDestinationList...");
 
         StringBuilder sb = new StringBuilder();
-        sb.append(articleTitle.replaceAll(" ", "_").toLowerCase());
+        sb.append(articleBackEndName.replaceAll(" ", "_").toLowerCase());
         sb.append("_td");
 
         final Resources resources = this.getResources();
@@ -145,33 +147,39 @@ public class ArticleActivity extends AppCompatActivity {
         String packageName = this.getPackageName();
         int rawId = resources.getIdentifier(sb.toString(), "raw", packageName);
 
-        InputStream inputStream = resources.openRawResource(rawId);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        try{
+        //If there is no "Tourist Destinations" resource file defined for this particular article
+        //Remove the corresponding TextView and RecyclerView
+        if (rawId != 0) {
+            InputStream inputStream = resources.openRawResource(rawId);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            try {
 
-            String line;
-            //read until end of file
-            while ((line = reader.readLine()) != null){
-                //split by ---
-                String[] strings = TextUtils.split(line, "---");
+                String line;
+                //read until end of file
+                while ((line = reader.readLine()) != null) {
+                    //split by ---
+                    String[] strings = TextUtils.split(line, "---");
 
-                //terminate current iteration if article is not in the form of <TITLE - IMAGEID - CONTENT>
-                //although form is <TITLE, IMAGEID, CONTENT>, they are inserted as <TITLE, CONTENT, IMAGEID>
-                if (strings.length < 3) continue;
+                    //terminate current iteration if article is not in the form of <TITLE - IMAGEID - CONTENT>
+                    //although form is <TITLE, IMAGEID, CONTENT>, they are inserted as <TITLE, CONTENT, IMAGEID>
+                    if (strings.length < 3) continue;
 
-                int photoId = resources.getIdentifier(strings[0].trim(), "drawable", packageName);
-                String title = strings[1].trim();
-                String description = strings[2].trim();
+                    int photoId = resources.getIdentifier(strings[0].trim(), "drawable", packageName);
+                    String title = strings[1].trim();
+                    String description = strings[2].trim();
 
+                    Log.d(TAG, "Loading article for " + title);
 
-                Log.d(TAG, "Loading article for " + title);
-
-                mTouristDestinationList.add(new TouristDestination(photoId, title, description));
+                    mTouristDestinationList.add(new TouristDestination(photoId, title, description));
+                }
+            } finally {
+                reader.close();
             }
-        } finally {
-            reader.close();
+            Log.d(TAG, "Finished loading list.");
+            return true;
+        } else {
+            return false;
         }
-        Log.d(TAG, "Finished loading list.");
     }
 
 }

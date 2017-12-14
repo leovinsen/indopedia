@@ -1,0 +1,19 @@
+Selamat datang - Welcome - selamat
+Halo - Hello - halo
+Terima kasih - Thank you - terima
+Makan - Eat - makan
+Lari - Run - lari
+Jalan - Walk - jalan
+Jalan - Street/Road - jalan
+Jalan jalan - Stroll - jalanjalan
+Beli - Buy - beli
+Jual - Sell - jual
+Berapa? - How much?/How many? - berapa
+Di mana? - Where? - dimana
+Selamat Pagi - Good Morning - selamatpagi
+Selamat Siang - Good Afternoon - selamatsiang
+Selamat Sore - Good Evening - selamatsore
+Selamat Malam - Good Evening/Good Night - selamatmalam
+Hari ini - Today - hariini
+Besok - Tomorrow - besok
+Kemarin - Yesterday - kemarin

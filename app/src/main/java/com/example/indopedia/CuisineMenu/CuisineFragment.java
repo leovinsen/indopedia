@@ -1,16 +1,23 @@
 package com.example.indopedia.CuisineMenu;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.indopedia.R;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -33,13 +40,56 @@ public class CuisineFragment extends Fragment {
     }
 
     private void initializeData() {
-        mCuisineList = new ArrayList<>();
-        for(int i =0; i<9; i++){
-
-            mCuisineList.add(new Cuisine("Food " + i, R.drawable.lagoi));
+        try {
+            loadCuisine();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
+//        new Thread(new Runnable() {
+//            public void run() {
+//                try {
+//                    loadCuisine();
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        }).start();
     }
+
+    private void loadCuisine() throws IOException {
+        mCuisineList = new ArrayList<>();
+        Log.d(TAG, "Loading mCuisineList...");
+
+        final Resources resources = getContext().getResources();
+        InputStream inputStream = resources.openRawResource(R.raw.cuisine);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+        String packageName = getContext().getPackageName();
+
+        try {
+            String line;
+            //read until end of file
+            while ((line = reader.readLine()) != null) {
+                //split by -
+                String[] strings = TextUtils.split(line, "---");
+                //terminate current iteration if article is not in the form of <TITLE - IMAGEID - CONTENT>
+                //although form is <TITLE, IMAGEID, CONTENT>, they are inserted as <TITLE, CONTENT, IMAGEID>
+
+                if (strings.length < 2) continue;
+
+                int photoId = resources.getIdentifier("cuisine_" + strings[0].trim(), "drawable", packageName);
+                String name = strings[1].trim();
+
+                Log.d(TAG, "Loading food " + name);
+
+                mCuisineList.add(new Cuisine(name, photoId));
+            }
+        } finally {
+            reader.close();
+        }
+        Log.d(TAG, "Finished loading mArticleList.");
+    }
+
 
     @Nullable
     @Override

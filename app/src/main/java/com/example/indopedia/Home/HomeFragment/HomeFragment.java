@@ -48,13 +48,9 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity());
+
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
@@ -65,15 +61,20 @@ public class HomeFragment extends Fragment {
     }
 
     private void initializeData() {
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    loadArticles();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }).start();
+        try {
+            loadArticles();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        new Thread(new Runnable() {
+//            public void run() {
+//                try {
+//                    loadArticles();
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        }).start();
     }
 
     private void loadArticles() throws IOException {
@@ -99,13 +100,12 @@ public class HomeFragment extends Fragment {
 
                 String articleTitle = strings[0].trim();
                 String articleContent = strings[2].trim();
-                int photoId = resources.getIdentifier(strings[1].trim(), "drawable", packageName);
-
-                //Log.d(TAG, "Drawable : " + photoId);
+                String backEndName = strings[1].trim();
+                int photoId = resources.getIdentifier(backEndName, "drawable", packageName);
 
                 Log.d(TAG, "Loading article for " + articleTitle);
 
-                mArticleList.add(new Article(articleTitle, articleContent, photoId));
+                mArticleList.add(new Article(articleTitle, articleContent, photoId, backEndName));
             }
         } finally {
             reader.close();

@@ -42,7 +42,7 @@
                 android:padding="30dp" />
 
             <TextView
-                android:id="@+id/article_things_to_do"
+                android:id="@+id/article_tourist_destinations"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/article_text"
@@ -57,7 +57,7 @@
                 android:scrollbars="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/article_things_to_do" />
+                android:layout_below="@id/article_tourist_destinations" />
         </RelativeLayout>
 
 

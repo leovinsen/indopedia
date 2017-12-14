@@ -7,13 +7,13 @@
         />
 
     <item
-        android:id="@+id/menu_search"
-        android:title="@string/menu_search"
-        android:icon="@drawable/ic_search_black"
+        android:id="@+id/menu_phrases"
+        android:title="@string/menu_phrases"
+        android:icon="@drawable/ic_phrases"
         />
 
     <item
-        android:id="@+id/menu_notifications"
-        android:title="@string/menu_notifications"
-        android:icon="@drawable/ic_notifications_black" />
+        android:id="@+id/menu_cuisine"
+        android:title="@string/menu_cuisine"
+        android:icon="@drawable/ic_food" />
 </menu>

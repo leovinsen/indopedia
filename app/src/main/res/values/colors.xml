@@ -8,5 +8,6 @@
     <color name="color_search">#2196F3</color>
     <color name="color_notifications">#9C27B0</color>
 
-    <color name="white">#FFFFFF</color>
+    <color name="color_red_phrases">#d45e66</color>
+    <color name="color_white">#ffffff</color>
 </resources>
