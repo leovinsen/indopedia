@@ -1,9 +1,9 @@
 # indopedia
 
-An encyclopedia for you to learn about Indonesia's popular tourist spots, language and cuisine
+An encyclopedia for you to learn about Indonesia's popular tourist spots, language and cuisine <br>
 
-Developed by:
-Julius Angkawijoyo
-Leonardo Vinsen
+Developed by: <br>
+Julius Angkawijoyo <br>
+Leonardo Vinsen <br>
 
 Images belong to their respectful owners.
